@@ -1,14 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+@font-face {
+    font-family: 'LoPTitle';
+    src: url('../fonts/TitleFontEnglish.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'LoPInfo';
+    src: url('../fonts/InfoFontEnglish.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: black;
+  font-family: 'LoPInfo';
+  background-color: #0D0D0D;
 }
 
 :root {
-  --tamanho-header: 80px;
+  --tamanho-header: 125px;
   --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
@@ -23,7 +33,6 @@ body {
 
 .header {
   height: var(--tamanho-header);
-  border-bottom: 2px solid #32b9cd;
 }
 
 .header .container {
@@ -34,11 +43,11 @@ body {
 
 .header a {
   text-decoration: none;
-  color: #e3b062;
+  color: #BF3636;
 }
 
 .agora {
-  font-weight: 800;
+  font-family: 'LoPTitle';
 }
 
 .navbar {
@@ -47,7 +56,7 @@ body {
   align-items: center;
   justify-content: space-between;
   list-style: none;
-  color: #e3b062;
+  color: #BF3636;
 }
 
 .titulo {
@@ -59,14 +68,30 @@ body {
 .header h1 {
   margin: 0;
 }
+.header img{
+    width: 150px;
+}
 
 /* BANNER */
 
 .banner {
   height: var(--tamanho-banner);
   color: white;
-  background-image: url('../assets/imgs/bg-jelly-fish-para-home.png');
-  background-size: cover;
+  position: relative;
+  font-family: 'LoPTitle';
+}
+
+.banner::before{
+    display: flex;
+    width: 100%;
+    position: absolute;
+    background-image: url('../assets/img/lies-of-p-pinocchio.jpg');
+    content: '';
+    inset: 0;
+    background-size: cover;
+    background-position: bottom;
+    z-index: -1;
+    opacity: 0.45;
 }
 
 .banner .container {
@@ -76,7 +101,7 @@ body {
 }
 
 .banner .container p {
-  width: 50%;
+  width: 60%;
   margin: 0;
   padding: 0;
   font-size: 36px;
@@ -89,17 +114,16 @@ body {
 /* MISSÃO VISÃO VALORES */
 
 .social {
-  background-color: #e5e5e5;
-  display: flex;
+    background: linear-gradient(#22384B,#819FA6,#51768D);
+    display: flex;
+    padding-top: 7%;
 }
 
 .social .container {
   justify-content: center;
 }
 
-.box img {
-  width: 170px;
-}
+
 
 .social .container .boxes {
   display: flex;
@@ -116,6 +140,18 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: #fff;
+  font-size: 25px;
+  width: 30%;
+}
+
+.box img {
+  width: 250px;
+  border-radius: 100%;
+}
+
+.box h1{
+    font-family: 'LoPTitle';
 }
 
 /* FOOTER */
