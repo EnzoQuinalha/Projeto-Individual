@@ -153,7 +153,75 @@ body {
 .box h1{
     font-family: 'LoPTitle';
 }
+/* Lore */
+.lore{
+    background: linear-gradient(#51768D, #204C73);
+    display: flex;
+    padding-top: 7%;
+}
 
+.lore .container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+
+}
+.txt{
+  align-items: center;
+  color: #fff;
+  font-size: 25px;
+  width: 40%;
+}
+
+.txt h1{
+    font-family: 'LoPTitle';
+}
+
+.container .png{
+    width: 700px;
+    border-radius: 70px;
+}
+
+.lie{
+    background-color: #204C73;
+    display: flex;
+    padding-top: 7%;
+}
+
+.lie .container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+
+}
+
+/* Bosses */
+.bossesfav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 7%;
+    background-color: #204C73;
+    color: #fff;
+    font-size: 25px;
+}
+
+.bossesfav h1{
+    font-family: 'LoPTitle';
+}
+
+.boss{
+    display: flex;
+    flex-direction: row;
+}
+
+.bossbox{
+    background-color: #819FA6;
+    width: 500px;
+}
 /* FOOTER */
 
 .footer {
