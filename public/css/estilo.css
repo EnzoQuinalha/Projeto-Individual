@@ -17,6 +17,10 @@ body {
   background-color: #0D0D0D;
 }
 
+h1{
+    font-family: 'LoPTitle';
+}
+
 :root {
   --tamanho-header: 125px;
   --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
@@ -150,9 +154,6 @@ body {
   border-radius: 100%;
 }
 
-.box h1{
-    font-family: 'LoPTitle';
-}
 /* Lore */
 .lore{
     background: linear-gradient(#51768D, #204C73);
@@ -172,10 +173,6 @@ body {
   color: #fff;
   font-size: 25px;
   width: 40%;
-}
-
-.txt h1{
-    font-family: 'LoPTitle';
 }
 
 .container .png{
@@ -207,20 +204,52 @@ body {
     background-color: #204C73;
     color: #fff;
     font-size: 25px;
-}
-
-.bossesfav h1{
-    font-family: 'LoPTitle';
+    padding-bottom: 40px;
 }
 
 .boss{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .bossbox{
     background-color: #819FA6;
-    width: 500px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.bossbox img{
+    width: 90%;
+    /* margin-top: 40px; */
+}
+.bossbox .textsolo{
+    margin-right: 15px;
+    max-width: 50%;
+    margin-left: 15px;
+}
+
+.bossbox .textimg {
+    margin-top: 50px;
+    text-align: start;
+}
+
+.bossbox .textimg img{
+    border-radius: 50px;
+}
+
+.seta{
+    height: 100px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    margin: 50px;
+}
+
+.seta:hover{
+    transform: scale(1.1);
 }
 /* FOOTER */
 
