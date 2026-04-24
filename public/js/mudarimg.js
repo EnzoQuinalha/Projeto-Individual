@@ -34,6 +34,6 @@ function conteudo(){
     }
     else if(qualImagem == 3){
         textosolo.innerHTML = `<h1>Champion Victor</h1><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum eligendi ex aspernatur magni inventore? Perspiciatis incidunt, quidem, dolore ipsam explicabo repellat veniam dolorum accusamus sint doloribus, rerum accusantium libero similique nemo obcaecati eum doloremque dignissimos consequuntur officiis! Officia, nesciunt quia!</p>`
-        imagem.innerHTML = `<img src="assets/img/Champion_Victor_1.webp" alt="imagem boss"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sollicitudin orci non suscipit viverra. Pellentesque vel molestie orci, in tincidunt augue.</p>`
+        imagem.innerHTML = `<img src="assets/img/Champion_Victor_1.webp" alt"imagem boss"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sollicitudin orci non suscipit viverra. Pellentesque vel molestie orci, in tincidunt augue.</p>`
     }
 }
