@@ -254,7 +254,7 @@ h1{
 /* FOOTER */
 
 .footer {
-  background-color: #32b9cd;
+  background-color: #0D0D0D;
   height: 150px;
   color: #fff;
   display: flex;
@@ -274,7 +274,7 @@ h1{
 
 .login {
   height: var(--tamanho-login);
-  background-image: url('../assets/imgs/bg-jelly-fish-para-home.png');
+  background-image: url('../assets/img/croppedimage1201631-lies-of-p-background.jpg');
   background-size: cover;
 }
 
@@ -285,13 +285,13 @@ h1{
 }
 
 .card {
-  width: 50%;
+  width: 30%;
   background-color: #e5e5e5;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  color: palevioletred;
+  color: #BF3636;
   flex-direction: column;
   height: fit-content;
   padding: 20px 0;
@@ -316,7 +316,7 @@ h1{
 }
 
 .formulario input {
-  border: 2px solid #32b9cd;
+  border: 2px solid #819fa6;
   text-align: center;
   border-radius: 10px;
   margin: 0;
@@ -341,13 +341,13 @@ h1{
 
 .botao {
   cursor: pointer;
-  font-family: "Barlow", sans-serif;
+  font-family: "LoPTitle";
   border: 0;
   border-radius: 5px;
   font-weight: 600;
   font-size: 18px;
   color: #fff;
-  background-color: #ED145B;
+  background-color: #BF3636;
   width: 120px;
   height: 30px;
   align-self: center;
