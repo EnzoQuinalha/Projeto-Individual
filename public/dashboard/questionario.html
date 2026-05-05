@@ -4,78 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Despertar da Humanidade - Lies of P</title>
-    <!-- Reaproveitando o CSS que já tem a identidade visual do jogo -->
     <link rel="stylesheet" href="../css/dashboards.css">
     <link rel="stylesheet" href="../css/estilo.css">
 </head>
-<body style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+<body onload="validarSessao()" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
 
     <div class="quiz-container container-lop" style="width: 100%; max-width: 600px;">
-        <img src="../assets/img/LoPLogo.png" width="150" style="display: block; margin: 0 auto;">
-        <h2 style="text-align: center;">O Despertar de P</h2>
-        <hr>
 
+        <!-- BLOCO DE QUESTÕES -->
         <div id="questoes">
+
+            <a href="dashboard.html"><img src="../assets/icon/left-arrow.png" alt="" style="width: 25px;"></a>
+            <h2 style="text-align: center;">O Despertar de P</h2>
+            
+            <hr>
 
             <div id="pergunta1" class="pergunta ativa">
                 <p>1. Uma mulher ja cega pela doença de petrificação pergunta a você o que acha do seu bebê</p>
-                <button class="btn-lop" onclick="responder(10)">[Mentir] É um bebê lindo.</button>
-                <button class="btn-lop" onclick="responder(0)">[Verdade] É apenas um boneco.</button>
+                <div class="questao">
+                    <button class="btn-lop" onclick="responder(10)">É um bebê lindo.</button>
+                    <button class="btn-lop" onclick="responder(0)">É apenas um boneco.</button>
+                </div>
             </div>
 
             <div id="pergunta2" class="pergunta" style="display: none;">
                 <p>2. Um homem pergunta se você acha que humanos e titeres podem se amar. O que você responderria</p>
-                <button class="btn-lop" onclick="responder(0)">[Verdade] Nunca vi isso acontecer.</button>
-                <button class="btn-lop" onclick="responder(10)">[Mentir] Eu acredito que seja possivel.</button>
+                <div class="questao">
+                    <button class="btn-lop" onclick="responder(0)">Nunca vi isso acontecer.</button>
+                    <button class="btn-lop" onclick="responder(10)">Eu acredito que seja possivel.</button>
+                </div>
             </div>
 
             <div id="pergunta3" class="pergunta" style="display: none;">
                 <p>3. Uma mulher infectada pela doença da petrificação pergunta enquanto encara um quadro dela mais jovem. Eu ainda tenho alguma fagulha da beleza que eu tinha?</p>
-                <button class="btn-lop" onclick="responder(0)">[Verdade] Nâo sobrou nada.</button>
-                <button class="btn-lop" onclick="responder(10)">[Mentir] Claro.</button>
+                <div class="questao">
+                    <button class="btn-lop" onclick="responder(0)">Nâo sobrou nada.</button>
+                    <button class="btn-lop" onclick="responder(10)">Claro.</button>
+                </div>
             </div>
 
             <div id="pergunta4" class="pergunta" style="display: none;">
                 <p>4. Uma garota pede para você entregar um par de luvas para um amigo. Ele odiou as luvas, quando retorna, a garota pertgunta o que ele achou das luvas.</p>
-                <button class="btn-lop" onclick="responder(0)">[Verdade] Ele estava com raiva. Ele disse que as luvas eram uma porcaria.</button>
-                <button class="btn-lop" onclick="responder(10)">[Mentir] Ele estava feliz.</button>
+                <div class="questao">
+                    <button class="btn-lop" onclick="responder(10)">Ele estava feliz.</button>
+                    <button class="btn-lop" onclick="responder(0)">Ele estava com raiva. Ele disse que as luvas eram uma porcaria.</button>
+                </div>  
             </div>
 
             <div id="pergunta5" class="pergunta" style="display: none;">
                 <p>5.O que é, o que é, pela manhã, ele anda sobre quatro pés. Ao meio-dia, apenas duas, nem menos, nem mais. Ele anda sobre um metro quando a noite chega.</p>
-                <button class="btn-lop" onclick="responder(0)">[Verdade] Monstro.</button>
-                <button class="btn-lop" onclick="responder(10)">[Mentir] Humano.</button>
+                <div class="questao">
+                    <button class="btn-lop" onclick="responder(0)">Monstro.</button>
+                    <button class="btn-lop" onclick="responder(10)">Humano.</button>
+                </div>
             </div>
 
             <div id="pergunta6" class="pergunta" style="display: none;">
                 <p>6. Eu me mantenho firme e orgulhoso quando sou jovem e ousado. Mas sou baixo e humilde quando envelheço. O que sou eu?</p>
-                <button class="btn-lop" onclick="responder(0)">[Verdade] Boa Constrictor que terminou de Digerir.</button>
-                <button class="btn-lop" onclick="responder(10)">[Mentir] Vela.</button>
+                <div class="questao">
+                    <button class="btn-lop" onclick="responder(10)">Vela.</button>
+                    <button class="btn-lop" onclick="responder(0)">Boa Constrictor que terminou de Digerir.</button>
+                </div>
             </div>
 
             <div id="pergunta7" class="pergunta" style="display: none;">
                 <p>7. Pense nisso, custe o que custar: o que não pode ser usado antes de quebrar?</p>
-                <button class="btn-lop" onclick="responder(0)">[Verdade] Vidro.</button>
-                <button class="btn-lop" onclick="responder(10)">[Mentir] Ovo.</button>
+                <div class="questao">
+                    <button class="btn-lop" onclick="responder(10)">Ovo.</button>
+                    <button class="btn-lop" onclick="responder(0)">Vidro.</button>
+                </div>
             </div>
 
             <div id="pergunta8" class="pergunta" style="display: none;">
                 <p>8. Esta flor azul tem muitas maneiras de criar raízes. Mas somente no homem isso dá frutos</p>
-                <button class="btn-lop" onclick="responder(0)">[Verdade] Um hematoma.</button>
-                <button class="btn-lop" onclick="responder(10)">[Mentir] Ergo.</button>
+                <div class="questao">
+                    <button class="btn-lop" onclick="responder(10)">Ergo.</button>
+                    <button class="btn-lop" onclick="responder(0)">Um hematoma.</button>
+                </div>
             </div>
 
             <div id="pergunta9" class="pergunta" style="display: none;">
                 <p>9. Eu devoro todas as coisas: pássaros, feras, árvores e flores. Mastigo o ferro, mordo o aço e moio a rocha viva até virar pó. Mato reis, arruíno cidades e derrubo montanhas altas. Se você me der um momento, eu te tirarei tudo.</p>
-                <button class="btn-lop" onclick="responder(0)">[Verdade] O Tempo.</button>
-                <button class= "btn-lop" onclick="responder(10)">[Mentir] O Medo.</button>
+                <div class="questao">
+                    <button class="btn-lop" onclick="responder(0)">O Tempo.</button>
+                    <button class= "btn-lop" onclick="responder(10)">O Medo.</button>
+                </div>
             </div>
 
             <div id="pergunta10" class="pergunta" style="display: none;">
                 <p>10. Este é preto e branco, um não ou um sim; a criação de Gepeto é assassina? Confesse!</p>
-                <button class="btn-lop" onclick="responder(10)">[Verdade] Sim.</button>
-                <button class="btn-lop" onclick="responder(10)">[Mentir] Não.</button>
+                <div class="questao">
+                    <button class="btn-lop" onclick="responder(10)">Sim.</button>
+                    <button class="btn-lop" onclick="responder(10)">Não.</button>
+                </div>
             </div>
+
         </div>
 
         <div id="div_aguardar" class="loading-div" style="display: none; justify-content: center; margin-top: 20px;">
@@ -87,61 +110,41 @@
         let humanidadeTotal = 0;
         let perguntaAtual = 1;
         const totalPerguntas = 10;
-
+        
         function responder(pontos) {
-            // 1. Acumula a pontuação de humanidade
             humanidadeTotal += pontos;
-            console.log(`Resposta registrada. Pontuação atual: ${humanidadeTotal}`);
 
-            // 2. Esconde a pergunta que o usuário acabou de responder
             document.getElementById(`pergunta${perguntaAtual}`).style.display = "none";
-            
-            // 3. Incrementa o contador
             perguntaAtual++;
 
-            // 4. Verifica se ainda existem perguntas ou se acabou
             if (perguntaAtual <= totalPerguntas) {
                 document.getElementById(`pergunta${perguntaAtual}`).style.display = "block";
+                document.getElementById("btn_voltar").style.display = "inline-block";
             } else {
                 finalizarQuiz();
             }
         }
 
         function finalizarQuiz() {
-            // Mostra o loading
             document.getElementById("questoes").style.display = "none";
             document.getElementById("div_aguardar").style.display = "flex";
 
-            // Recupera o ID do usuário logado
-            var idUsuario = sessionStorage.ID_USUARIO; 
+            var idUsuario = sessionStorage.ID_USUARIO;
 
-            if (!idUsuario) {
-                alert("Erro: Usuário não identificado. Faça login novamente.");
-                window.location.href = "../login.html";
-                return;
-            }
-
-            // Envia para a API que você adaptou
             fetch("/quiz/salvar", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     idUsuarioServer: idUsuario,
                     pontuacaoServer: humanidadeTotal
                 })
             }).then(function (resposta) {
                 if (resposta.ok) {
-                    alert("A sua Humanidade reagiu... Seu destino foi gravado.");
                     window.location.href = "dashboard.html";
                 } else {
-                    alert("Erro ao salvar o resultado do quiz.");
-                    console.error("Erro na resposta da API");
+                    alert("Erro ao salvar o resultado.");
                 }
-            }).catch(function (erro) {
-                console.log(`#ERRO: ${erro}`);
-            });
+            }).catch(erro => console.log(`#ERRO: ${erro}`));
         }
     </script>
 </body>

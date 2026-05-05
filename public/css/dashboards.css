@@ -147,7 +147,7 @@ body {
     width: 100%;
 }
 
-.item-regua {
+/* .item-regua {
     width: 20%;
     text-align: center;
     height: 80px;
@@ -164,11 +164,11 @@ body {
 
 .item-regua p:nth-child(2) {
     font-weight: 800;
-}
+} */
 
-.perigo-frio {
+/* .perigo-frio {
     background-color: #5c6bc0;
-}
+} */
 
 .perigo-quente {
     background-color: #ff7043;
@@ -182,19 +182,9 @@ body {
     background-color: #ffee58;
 }
 
-.ideal {
+/* .ideal {
     background-color: #9ccc65;
-}
-
-.questionario {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    height: 450px;
-    width: 100%;
-    align-items: center;
-    color: white;
-}
+} */
 
 .card-aquario {
     margin: 2%;
@@ -475,6 +465,8 @@ h3 {
     border-radius: 5px;
     padding: 30px;
     backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
 }
 
 /* Botões com estilo de engrenagem/metal */
@@ -493,4 +485,9 @@ h3 {
     background: var(--gold);
     color: #000;
     box-shadow: 0 0 15px var(--gold);
+}
+
+.questao{
+    display: flex;
+    justify-content: space-evenly;
 }

@@ -18,7 +18,27 @@ function buscarMediaComunidade() {
     return database.executar(instrucaoSql);
 }
 
+function buscarDadosDash(idUsuario) {
+    var instrucaoSql = `
+        SELECT 
+            (SELECT pontuacao_humanidade FROM resultado_quiz WHERE fkUsuario = ${idUsuario} ORDER BY idResultado DESC LIMIT 1) as pontuacao_user,
+            (SELECT AVG(pontuacao_humanidade) FROM resultado_quiz) as media_geral;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function verificarQuiz(idUsuario) {
+    var instrucaoSql = `
+        SELECT count(fkUsuario) as tentativas FROM resultado_quiz WHERE fkUsuario = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     salvarHumanidade,
-    buscarMediaComunidade
+    buscarMediaComunidade,
+    buscarDadosDash,
+    verificarQuiz
 };
