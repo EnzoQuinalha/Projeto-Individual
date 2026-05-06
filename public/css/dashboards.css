@@ -491,3 +491,87 @@ h3 {
     display: flex;
     justify-content: space-evenly;
 }
+
+/* Customização para a Tier List */
+.tierlist-main {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 40px auto;
+    align-self: flex-start;
+}
+
+.titulo-sessao {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.tier-table {
+    display: flex;
+    flex-direction: column;
+    border: var(--border-style);
+    background-color: #1a1a1a;
+}
+
+.tier-row {
+    display: flex;
+    min-height: 100px;
+    border-bottom: 1px solid #333;
+}
+
+.tier-label {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'LiesOfP-Title';
+    font-size: 2rem;
+    color: #000;
+    font-weight: bold;
+}
+
+.tier-content {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Itens que serão movidos */
+.tier-item {
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    background-color: #212124;
+    border: 1px solid var(--gold);
+    background-size: cover;
+    background-position: center;
+    cursor: grab;
+    transition: transform 0.2s;
+}
+
+.tier-item:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+}
+
+.tier-item .dragging {
+    opacity: 0.25;
+}
+
+/* Pool de itens inferior */
+.item-pool-container {
+    margin-top: 40px;
+    padding: 20px;
+    background: var(--panel-bg);
+    border: var(--border-style);
+}
+
+.item-pool {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    min-height: 120px;
+    justify-content: center;
+}

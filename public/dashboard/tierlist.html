@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/dashboards.css">
+    <link rel="stylesheet" href="../css/estilo.css">
+
+    <script src="../js/sessao.js"></script>
+</head>
+<body onload="validarSessao()">
+    <div class="janela">
+    <!-- Reaproveitando sua Sidebar -->
+    <div class="header-left">
+        <h1>Lies of P</h1>
+        <div class="hello">
+            <h3>Olá, <span id="b_usuario">Usuário</span>!</h3>
+        </div>
+        <div class="btn-nav">
+            <h3>Tier List</h3>
+        </div>
+        <a href="dashboard.html" class="btn-nav-white">
+            <h3>Voltar</h3>
+        </a>
+        <div class="btn-logout" onclick="limparSessao()">
+            <h3>Sair</h3>
+        </div>
+    </div>
+
+    <!-- Área da Tier List -->
+    <div class="dash-right">
+        <div class="container-lop tierlist-main">
+            <div class="titulo-sessao">
+                <h1>Melhor Boss de todo o jogo</h1>
+                <p>Arraste ou organize seus favoritos</p>
+            </div>
+
+            <!-- Grade da Tier List -->
+            <div class="tier-table">
+                <!-- Tier S -->
+                <div class="tier-row">
+                    <div class="tier-label" style="background-color: #ff7f7f;">S</div>
+                    <div class="tier-content" id="tier-s" ondragover="deixarSoltar(event)" ondrop="soltar(event)"></div>
+                </div>
+                <!-- Tier A -->
+                <div class="tier-row">
+                    <div class="tier-label" style="background-color: #ffbf7f;">A</div>
+                    <div class="tier-content" id="tier-a" ondragover="deixarSoltar(event)" ondrop="soltar(event)"></div>
+                </div>
+                <!-- Tier B -->
+                <div class="tier-row">
+                    <div class="tier-label" style="background-color: #ffff7f;">B</div>
+                    <div class="tier-content" id="tier-b" ondragover="deixarSoltar(event)" ondrop="soltar(event)"></div>
+                </div>
+                <!-- Tier C -->
+                <div class="tier-row">
+                    <div class="tier-label" style="background-color: #7fff7f;">C</div>
+                    <div class="tier-content" id="tier-c" ondragover="deixarSoltar(event)" ondrop="soltar(event)"></div>
+                </div>
+                <!-- Tier D -->
+                <div class="tier-row">
+                    <div class="tier-label" style="background-color: #7fe1ff;">D</div>
+                    <div class="tier-content" id="tier-d" ondragover="deixarSoltar(event)" ondrop="soltar(event)"></div>
+                </div>
+            </div>
+
+            <button class="btn-nav" onclick="salvarTierList()">
+                <h3>Salvar Tier List</h3>
+            </button>
+
+            <!-- Banco de Imagens/Itens (Assets) -->
+            <div class="item-pool-container">
+                <h2>Boss</h2>
+                <div class="item-pool" id="pool" ondragover="deixarSoltar(event)" ondrop="soltar(event)">
+                    <!-- Exemplo de item (imagem ou div) -->
+                    <img src="../assets/img/PupeteerMelhordada.jpg" alt="Reidostiteres" class="tier-item" draggable="true" ondragstart="cmcSegurar(event)" ondragend="terminarSegurar(event)" id="Pupeteer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function cmcSegurar(event){
+        event.dataTransfer.setData("Text", event.target.id);
+        event.target.classList.add('dragging');
+        console.log('Segurando a imagem');
+    }
+
+    function deixarSoltar(event){
+        event.preventDefault();
+        console.log('Em cima da tier');
+    }
+
+    function soltar(event){
+        event.preventDefault();
+        let data = event.dataTransfer.getData("Text");
+        let elementoArrastado = document.getElementById(data);
+        event.currentTarget.appendChild(elementoArrastado);
+        
+        console.log('soltei');        
+    }
+
+    function terminarSegurar(event) {
+        event.target.classList.remove('dragging');
+    }
+
+    function salvarTierList(){
+        let dadosParaSalvar = [];
+
+        const valoresDasTiers = {
+            "S": 5,
+            "A": 4,
+            "B": 3,
+            "C": 2,
+            "D": 1
+        };
+
+        let linhasDeTier = document.querySelectorAll('.tier-row');
+
+        linhasDeTier.forEach(linha => {
+        
+            let letraDaTier = linha.querySelector('.tier-label').innerText.trim().toUpperCase();
+            
+            let nota = valoresDasTiers[letraDaTier] || 0; 
+
+            let bossesNestaTier = linha.querySelectorAll('.tier-content .tier-item');
+
+            // AGORA É CONTIGO!
+            bossesNestaTier.forEach(bossImagem => {
+                // Desafio:
+                // 1. Como pegas o valor do atributo 'data-id' da imagem atual (bossImagem)?
+                // 2. Como montas o objeto { id_boss: X, tier_nota: Y } e o colocas dentro do array 'dadosParaSalvar'?
+
+                let idDoBoss = bossImagem.id
+
+                dadosParaSalvar.push({
+                    id_boss: idDoBoss,
+                    tier_nota: nota
+                });
+                
+            });
+        });
+
+        console.log("JSON pronto para envio:", JSON.stringify(dadosParaSalvar, null, 2));
+    
+        // (O passo do fetch/API entrará aqui depois)
+        return dadosParaSalvar;
+    }
+</script>
+</html>
