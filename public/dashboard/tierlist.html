@@ -11,7 +11,7 @@
 </head>
 <body onload="validarSessao()">
     <div class="janela">
-    <!-- Reaproveitando sua Sidebar -->
+
     <div class="header-left">
         <h1>Lies of P</h1>
         <div class="hello">
@@ -73,7 +73,6 @@
             <div class="item-pool-container">
                 <h2>Boss</h2>
                 <div class="item-pool" id="pool" ondragover="deixarSoltar(event)" ondrop="soltar(event)">
-                    <!-- Exemplo de item (imagem ou div) -->
                     <img src="../assets/img/PupeteerMelhordada.jpg" alt="Reidostiteres" class="tier-item" draggable="true" ondragstart="cmcSegurar(event)" ondragend="terminarSegurar(event)" id="Pupeteer">
                 </div>
             </div>
@@ -127,11 +126,7 @@
 
             let bossesNestaTier = linha.querySelectorAll('.tier-content .tier-item');
 
-            // AGORA É CONTIGO!
             bossesNestaTier.forEach(bossImagem => {
-                // Desafio:
-                // 1. Como pegas o valor do atributo 'data-id' da imagem atual (bossImagem)?
-                // 2. Como montas o objeto { id_boss: X, tier_nota: Y } e o colocas dentro do array 'dadosParaSalvar'?
 
                 let idDoBoss = bossImagem.id
 

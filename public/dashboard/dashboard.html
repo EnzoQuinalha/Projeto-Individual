@@ -20,11 +20,10 @@
 
     <div class="janela">
         <div class="header-left">
-            <h1>Lies of P</h1> <!-- Removido AquaTech -->
+            <h1>Lies of P</h1>
 
             <div class="hello">
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
-                <!-- Removido o campo de CPF, pois não existe no seu cadastro -->
             </div>
 
             <div class="btn-nav-white">
@@ -66,7 +65,6 @@
     function exibirGraficoHumanidade() {
         var idUsuario = sessionStorage.ID_USUARIO;
 
-        // Rota que criamos no quizController.js[cite: 6]
         fetch(`/quiz/status/${idUsuario}`, { cache: 'no-store' }).then(function (res) {
             if (res.ok) {
                 res.json().then(json => {
