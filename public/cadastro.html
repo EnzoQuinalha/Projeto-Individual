@@ -123,7 +123,11 @@
             window.location = "login.html";
           }, 2000);
         } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
+            cardErro.style.display = 'block'
+            mensagem_erro.innerHTML = `(E-mail já cadastrado no sistema)`
+            finalizarAguardar();
+            return false
+            throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
       .catch(function (erro) {
