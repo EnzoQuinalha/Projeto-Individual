@@ -14,4 +14,7 @@ router.get("/verificar/:idUsuario", function (req, res) {
     quizController.verificarQuiz(req, res);
 });
 
+router.get("/percentil/:idUsuario", function (req,res){
+    quizController.pegarPercentil(req,res);
+})
 module.exports = router;

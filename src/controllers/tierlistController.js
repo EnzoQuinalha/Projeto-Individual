@@ -14,6 +14,14 @@ function listar(req, res) {
     })
 }
 
+function listarTodos(req, res){
+    tierlistModel.listarTodos().then(function(resultado){
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
 function cadastrar(req, res) {
     var idUsuario = req.params.idUsuario;
     // var idBoss = req.body.id_boss;
@@ -47,5 +55,6 @@ function cadastrar(req, res) {
 
 module.exports = {
     listar,
-    cadastrar
+    cadastrar,
+    listarTodos
 }

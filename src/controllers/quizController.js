@@ -24,6 +24,10 @@ function salvarHumanidade(req, res) {
 function obterDadosGrafico(req, res) {
     var idUsuario = req.params.idUsuario;
 
+    if(idUsuario == undefined){
+        res.status(400).send("Seu ID de usuário está undefined!");
+    }
+
     quizModel.buscarDadosDash(idUsuario).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
@@ -35,7 +39,26 @@ function obterDadosGrafico(req, res) {
     });
 }
 
+function pegarPercentil(req, res){
+    var idUsuario = req.params.idUsuario;
+
+    if(idUsuario == undefined){
+        return res.status(400).send("Seu ID de usuário está undefined!");
+    }
+
+    quizModel.buscarPercentil(idUsuario).then(function (resultado) {
+        if(resultado.length > 0){
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!");
+        }
+    }).catch(function (erro) {
+        console.log("\nHouve um erro ao buscar o percentil! Erro: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage)
+    });
+}
 module.exports = {
     salvarHumanidade,
-    obterDadosGrafico
+    obterDadosGrafico,
+    pegarPercentil
 };

@@ -16,7 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="validarSessao(); exibirGraficoHumanidade();">
+<body onload="validarSessao(); obterDadosGraficoHumanidade();carregarRanking()">
 
     <div class="janela">
         <div class="header-left">
@@ -47,14 +47,34 @@
             </div>
         </div>
 
-        <div class="dash">
+        <div class="dash" >
             <div id="graficos">
-                <div id="grafico_humanidade" class="display-block">
-                    <h3 class="tituloGraficos">
-                        <span id="titulo_status">Análise de Humanidade: Você vs. Comunidade</span>
-                    </h3>
-                    <div class="graph">
-                        <canvas id="myChartCanvas"></canvas>
+                <div id="graficoQuiz" class="graficoQuiz">
+                    <div id="grafico_humanidade" class="display-block grafico_humanidade">
+                        <h3 class="tituloGraficos">
+                            <span id="titulo_status">Análise de Humanidade: Você vs. Comunidade</span>
+                        </h3>
+                        <div class="graph">
+                            <canvas id="myChartCanvas"></canvas>
+                        </div>
+                    </div>
+                    <div id="kpis" class="kpis">
+                        <div id="kpiDelta" class="kpiDelta">
+                            Delta
+                        </div>
+
+                        <div id="kpiPercentil" class="kpiPercentil">
+                            Percentil
+                        </div>
+                    </div>
+                </div>
+
+                <div id="graficoTier">
+                    <ol id="ranking">
+                        
+                    </ol>
+                    <div id="favorito">
+
                     </div>
                 </div>
             </div>
@@ -62,53 +82,167 @@
     </div>
 
 </body>
-
+<style>
+    .rank{
+        display: flex;
+        justify-content: space-between;
+        width: 45%;
+        font-size: 35px;
+        background-color: black;
+    }
+    .graficoTier{
+        display: flex;
+        flex-direction: row;
+    }
+    
+</style>
 </html>
 
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    
+    let chartHumanidade; // Variável para segurar a instância do gráfico
+    let timerAtualizacaoHumanidade; // Variável para controlar o loop, se for usar
 
-    function exibirGraficoHumanidade() {
+    function obterDadosGraficoHumanidade() {
         var idUsuario = sessionStorage.ID_USUARIO;
 
-        fetch(`/quiz/status/${idUsuario}`, { cache: 'no-store' }).then(function (res) {
-            if (res.ok) {
+        if(timerAtualizacaoHumanidade != undefined){
+            clearTimeout(timerAtualizacaoHumanidade)
+        }
+
+        fetch(`/quiz/status/${idUsuario}`, {cache: 'no-store'}).then(function (res) {
+            if(res.ok){
                 res.json().then(json => {
-                    var dados = json[0];
-                    
-                    const ctx = document.getElementById('myChartCanvas').getContext('2d');
-                    new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Você', 'Comunidade (Média)'],
-                            datasets: [{
-                                label: 'Pontos de Humanidade',
-                                data: [dados.pontuacao_user, dados.media_geral],
-                                backgroundColor: ['#c5a059', '#32b9cd'], // Ouro e Azul Ergo
-                                borderColor: '#fff',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: { 
-                                    beginAtZero: true, 
-                                    max: 100,
-                                    ticks: { color: '#c5a059' } // Cor do texto no eixo Y
-                                },
-                                x: {
-                                    ticks: { color: '#c5a059' } // Cor do texto no eixo X
-                                }
-                            },
-                            plugins: {
-                                legend: { display: false } // Remove legenda inútil para 2 barras
-                            }
-                        }
-                    });
-                });
+                    var dados_recebidos = json[0]
+
+                    plotarGraficoHumanidade(dados_recebidos, idUsuario)
+                    plotarPercentil(idUsuario)
+                })
             }
         }).catch(function (error) {
-            console.error(`Erro na obtenção dos dados: ${error.message}`);
+            console.error(`Erro na obtenção dos dados: ${error.message}`)
+        })
+    }
+
+    function plotarGraficoHumanidade(dados, idUsuario) {
+        const ctx = document.getElementById('myChartCanvas').getContext('2d');
+
+        if(chartHumanidade){
+            chartHumanidade.destroy()
+        }
+
+        chartHumanidade = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Você', 'Comunidade (Média)'],
+                datasets: [{
+                    label: 'Pontos de Humanidade',
+                    data: [dados.pontuacao_user, dados.media_geral],
+                    backgroundColor: ['#c5a059', '#32b9cd'], // Ouro e Azul Ergo
+                    borderColor: '#fff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: { 
+                        beginAtZero: true, 
+                        max: 100,
+                        ticks: { color: '#c5a059' } // Cor do texto no eixo Y
+                    },
+                    x: {
+                        ticks: { color: '#c5a059' } // Cor do texto no eixo X
+                    }
+                },
+                plugins: {
+                    legend: { display: false } // Remove legenda inútil para 2 barras
+                }
+            }
         });
+
+        let conta = dados.pontuacao_user - dados.media_geral
+        conta = Math.round(conta)
+        if(conta > 0){
+            kpiDelta.innerHTML = `Pontos acima da multidão: <br><p><b style="font-size: 50px; color: #0078d7">+${conta}</b></p>`
+        }else if(conta < 0){
+            kpiDelta.innerHTML = `Pontos abaixo da multidão: <br><p><b style="font-size: 50px; color: #d93d4a">${conta}</b></p>`
+        }else{
+            kpiDelta.innerHTML = `No meio da multidão <br><p><b style="font-size: 50px; color: #d93d4a">${conta}</b></p>`
+        }
+
+
+
+        timerAtualizacaoHumanidade = setTimeout(() => atualizarGraficoHumanidade(idUsuario), 1000)
+    }
+
+    function atualizarGraficoHumanidade(idUsuario) {
+
+        fetch(`/quiz/status/${idUsuario}`, {cache: 'no-store'}).then(function (res) {
+            if(res.ok){
+                res.json().then(json => {
+                    var novos_dados = json[0]
+
+                    if(novos_dados.media_geral != chartHumanidade.data.datasets[0].data[1]){
+                        chartHumanidade.data.datasets[0].data = [novos_dados.pontuacao_user, novos_dados.media_geral]
+                        chartHumanidade.update()
+                    }
+
+                    let conta = novos_dados.pontuacao_user - novos_dados.media_geral
+                    conta = Math.round(conta)
+                    if(conta > 0){
+                        kpiDelta.innerHTML = `Pontos acima da multidão: <br><p><b style="font-size: 50px; color: #0078d7">+${conta}</b></p>`
+                    }else if(conta < 0){
+                        kpiDelta.innerHTML = `Pontos abaixo da multidão: <br><p><b style="font-size: 50px; color: #d93d4a">${conta}</b></p>`
+                    }else{
+                        kpiDelta.innerHTML = `No meio da multidão <br><p><b style="font-size: 50px; color: #d93d4a">${conta}</b></p>`
+                    }
+
+                    plotarPercentil(idUsuario)
+                    timerAtualizacaoHumanidade = setTimeout(() => atualizarGraficoHumanidade(idUsuario), 1000)
+                })
+            }
+        }).catch(function (error) {
+            console.error(`Erro na obtenção dos dados: ${error.message}`)
+        })
+    }
+
+    function plotarPercentil(idUsuario){
+
+        fetch(`/quiz/percentil/${idUsuario}`, {cache: 'no-store'}).then(function (res) {
+            if(res.ok){
+                res.json().then(json => {
+                    var percentil = json[0].percentil
+                    percentil = Math.round(percentil)
+                    percentil = 100 - percentil
+                    if(percentil == 0){
+                        percentil = 1
+                    }
+                    kpiPercentil.innerHTML = `<p><b style="font-size: 50px;">Top ${percentil}%</b></p>`
+                })
+            }
+        }).catch(function (error) {
+            console.error(`Erro na obtencao dos dados`)
+        })
+    }
+
+    function carregarRanking(){
+
+        fetch(`/tierlist/listar`, {cache: 'no-store'}).then(function (res) {
+            if(res.ok){
+                res.json().then(json => {
+                    var fav = json[0].boss
+                    ranking.innerHTML = ''
+
+                    for(let i = 0; i < 10; i++){
+                        ranking.innerHTML += `<li class='rank'><span>${json[i].boss}</span> <span>${json[i].pontos}</span></li>`
+                    }
+
+                    favorito.innerHTML = fav
+                })
+            }
+        }).catch(function (error) {
+            console.error(`Erro na obtencao dos dados`)
+        })
     }
 </script>

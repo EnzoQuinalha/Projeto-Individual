@@ -10,4 +10,8 @@ router.get("/listar/:idUsuario", function (req, res) {
     tierlistController.listar(req, res);
 });
 
+router.get("/listar", function (req, res){
+    tierlistController.listarTodos(req, res);
+});
+
 module.exports = router;

@@ -36,9 +36,35 @@ function verificarQuiz(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function buscarPercentil(idUsuario){
+    var instrucaoSql = `
+        SELECT ((
+            SELECT COUNT(fkUsuario)
+            FROM resultado_quiz WHERE idResultado IN (
+                SELECT MAX(idResultado)
+                FROM resultado_quiz
+                GROUP BY fkUsuario)
+
+                AND pontuacao_humanidade <= (
+                    SELECT pontuacao_humanidade
+                FROM resultado_quiz
+                WHERE idResultado = (
+                    SELECT MAX(idResultado)
+                    FROM resultado_quiz
+                    WHERE fkUsuario = ${idUsuario}
+        ))) 
+        / (
+            SELECT COUNT(DISTINCT fkUsuario)
+            FROM resultado_quiz
+        )) * 100.0 AS percentil;
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 module.exports = {
     salvarHumanidade,
     buscarMediaComunidade,
     buscarDadosDash,
-    verificarQuiz
+    verificarQuiz,
+    buscarPercentil
 };
