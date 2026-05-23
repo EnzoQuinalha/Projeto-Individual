@@ -275,6 +275,7 @@ h1{
     width: 70%;
     margin: auto;
     padding-top: 10px;
+    height: 300px   ;
 }
 
 .tituloGraficos {
@@ -632,4 +633,42 @@ h3 {
     box-shadow: 3px 3px 3px black;
     flex-direction: column;
     text-align: center;
+}
+.rank{
+    display: flex;
+    justify-content: space-between;
+    font-size: 25px;
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: #38383c;
+}
+.graficoTier{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.ranking{
+    width: 40%;
+    height: 400px;
+    background-color: #49494e;
+    /* margin-left: 10%; */
+    margin-top: 5%;
+    padding: 10px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    overflow-y: auto;
+    border-radius: 15px;
+    box-shadow: 3px 3px 3px black;
+    
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.tituloRank{
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: #49494e;
+    color: #c5a059;
 }

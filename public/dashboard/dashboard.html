@@ -16,7 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="validarSessao(); obterDadosGraficoHumanidade();carregarRanking()">
+<body onload="validarSessao(); obterDadosGraficoHumanidade();">
 
     <div class="janela">
         <div class="header-left">
@@ -69,11 +69,12 @@
                     </div>
                 </div>
 
-                <div id="graficoTier">
-                    <ol id="ranking">
-                        
-                    </ol>
-                    <div id="favorito">
+                <div id="graficoTier" class="graficoTier">
+                        <ul id="ranking" class="ranking"></ul>
+
+                    <div id="favoritos" class="favoritos">
+                        <div id="favoritoCom" class="favoritoCom"></div>
+                        <div id="favoritoUser" class="favoritoUser"></div>
 
                     </div>
                 </div>
@@ -81,19 +82,23 @@
         </div>
     </div>
 
+    
 </body>
 <style>
-    .rank{
+    .favoritos{
         display: flex;
-        justify-content: space-between;
-        width: 45%;
-        font-size: 35px;
-        background-color: black;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #49494e;
+        text-align: center;
+        border-radius: 15px;
+        box-shadow: 3px 3px 3px black;
     }
-    .graficoTier{
-        display: flex;
-        flex-direction: row;
-    }
+    
     
 </style>
 </html>
@@ -118,6 +123,7 @@
 
                     plotarGraficoHumanidade(dados_recebidos, idUsuario)
                     plotarPercentil(idUsuario)
+                    carregarRanking(idUsuario)
                 })
             }
         }).catch(function (error) {
@@ -156,7 +162,11 @@
                     }
                 },
                 plugins: {
-                    legend: { display: false } // Remove legenda inútil para 2 barras
+                    legend: { display: false }, // Remove legenda inútil para 2 barras
+                    tooltip: {
+                        enabled: true,
+                        animation: false,  // Desabilita a animação do tooltip
+                    }
                 }
             }
         });
@@ -173,7 +183,7 @@
 
 
 
-        timerAtualizacaoHumanidade = setTimeout(() => atualizarGraficoHumanidade(idUsuario), 1000)
+        timerAtualizacaoHumanidade = setTimeout(() => atualizarGraficoHumanidade(idUsuario), 10000)
     }
 
     function atualizarGraficoHumanidade(idUsuario) {
@@ -199,7 +209,7 @@
                     }
 
                     plotarPercentil(idUsuario)
-                    timerAtualizacaoHumanidade = setTimeout(() => atualizarGraficoHumanidade(idUsuario), 1000)
+                    timerAtualizacaoHumanidade = setTimeout(() => atualizarGraficoHumanidade(idUsuario), 10000)
                 })
             }
         }).catch(function (error) {
@@ -226,19 +236,35 @@
         })
     }
 
-    function carregarRanking(){
+    function carregarRanking(idUsuario){
 
         fetch(`/tierlist/listar`, {cache: 'no-store'}).then(function (res) {
             if(res.ok){
                 res.json().then(json => {
-                    var fav = json[0].boss
-                    ranking.innerHTML = ''
+                    var favCom = json[0].boss
+                    ranking.innerHTML = '<li><span class="tituloRank">Top 10 Bosses</span></li>'
 
                     for(let i = 0; i < 10; i++){
-                        ranking.innerHTML += `<li class='rank'><span>${json[i].boss}</span> <span>${json[i].pontos}</span></li>`
+                        ranking.innerHTML += `<li class='rank'><span>${i+1}º ${json[i].boss}</span> <span>${json[i].pontos}</span></li>`
                     }
 
-                    favorito.innerHTML = fav
+                    favoritoCom.innerHTML = `<span style="color: #c5a059; font-size: 30px">Boss favorito da comunidade: </span><br>`
+                    favoritoCom.innerHTML += `<span style="font-size: 20px; font-weight: bold">${favCom}</span>`
+                    favoritoCom.innerHTML += `<br><img src="../assets/img/bosses/${json[0].tag}.jpg" alt="${json[0].boss}">`
+                })
+            }
+        }).catch(function (error) {
+            console.error(`Erro na obtencao dos dados`)
+        })
+
+        fetch(`/tierlist/listar/${idUsuario}`,  {cache: 'no-store'}).then(function (res) {
+            if(res.ok){
+                res.json().then(json => {
+                    var favUser = json[0].boss
+
+                    favoritoUser.innerHTML = `<span style="color: #0078d7; font-size: 30px">Seu Boss favorito: </span><br>`
+                    favoritoUser.innerHTML += `<span style="font-size: 20px; font-weight: bold">${favUser}</span>`
+                    favoritoUser.innerHTML += `<br><img src="../assets/img/bosses/${json[0].tag}.jpg" alt="${json[0].boss}">`
                 })
             }
         }).catch(function (error) {
