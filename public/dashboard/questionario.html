@@ -1,21 +1,51 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    
+    <link rel="shortcut icon" href="../assets/icon/LoPLogo.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Despertar da Humanidade - Lies of P</title>
+    <title>LiesOfP | Quiz</title>
     <link rel="stylesheet" href="../css/dashboards.css">
     <link rel="stylesheet" href="../css/estilo.css">
     <script src="../js/sessao.js"></script>
 </head>
 <body onload="validarSessao()" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+    <div class="janela">
+        <div class="header-left">
+            <h1 class="titulo"><img src="../assets/img/LoPLogo.png" alt="Logo Lies of P"></h1>
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+
+            <div class="btn-nav">
+                <a href="./questionario.html">
+                    <h3>Questionário</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="dashboard.html">
+                    <h3>Gráficos</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <h3>Tier List</h3>
+            </div>
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+        </div>
+    </div>
 
     <div class="quiz-container container-lop" style="width: 100%; max-width: 600px;">
 
         <!-- BLOCO DE QUESTÕES -->
         <div id="questoes">
 
-            <a href="dashboard.html"><img src="../assets/icon/left-arrow.png" alt="" style="width: 25px;"></a>
             <h2 style="text-align: center;">O Despertar de P</h2>
             
             <hr>
@@ -29,7 +59,7 @@
             </div>
 
             <div id="pergunta2" class="pergunta" style="display: none;">
-                <p>2. Um homem pergunta se você acha que humanos e titeres podem se amar. O que você responderria</p>
+                <p>2. Um homem pergunta se você acha que humanos e titeres podem se amar. O que você responderia</p>
                 <div class="questao">
                     <button class="btn-lop" onclick="responder(0)">Nunca vi isso acontecer.</button>
                     <button class="btn-lop" onclick="responder(10)">Eu acredito que seja possivel.</button>
